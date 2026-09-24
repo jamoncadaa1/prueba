@@ -138,33 +138,12 @@
     padding: 4px 6px;
     min-width: 0;
   }
-  .big {
-    flex: 0 0 auto;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 150px;
-    height: 150px;
-    border: 2px solid var(--border);
-    border-radius: 10px;
-    background: var(--c);
-    text-align: center;
-  }
-  .big .num { font-size: 14px; top: 7px; right: 10px; }
-  .big .sym { font-size: 44px; }
-  .big .sym.long { font-size: 32px; }
-  .big .nm { font-size: 12.5px; padding: 0 8px; }
-  .text { min-width: 0; font-size: 13px; line-height: 1.5; }
+  .text { min-width: 0; font-size: 13.5px; line-height: 1.5; max-width: 62ch; }
   .text h2 { margin: 0; font-size: 18px; line-height: 1.25; }
   .text .en { margin: 0 0 6px; color: var(--muted); font-size: 12.5px; }
   .text p { margin: 0; }
   .text .dato { margin-top: 6px; }
   .text .dato b { font-weight: 700; }
-  .key-list { margin: 6px 0 0; padding: 0; list-style: none; font-size: 13px; }
-  .key-list li { margin: 2px 0; }
-  .key-list b { display: inline-block; min-width: 64px; }
 
   /* Leyenda */
   .legend {
@@ -203,6 +182,15 @@
     color: var(--muted);
   }
   .swipe { display: none; }
+  .howto {
+    max-width: 70ch;
+    margin: 16px auto 0;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+  .howto b { color: var(--ink); font-weight: 600; }
 
   @media (max-width: 900px) {
     .swipe { display: block; }
@@ -220,8 +208,7 @@
     .scroll { overflow: visible; }
     .el.is-dim, .el.is-active { opacity: 1; border: 1.5px solid var(--border); }
     .center .info { display: none !important; }
-    .center .key { display: flex !important; }
-    .hint { display: none; }
+    .hint, .screen-only { display: none; }
   }
 </style>
 
@@ -235,22 +222,6 @@
   <div class="scroll">
     <div class="table" id="table">
       <div class="center">
-        <div class="key" id="key" style="display:flex;gap:14px;align-items:center">
-          <div class="big inc">
-            <span class="num">1</span>
-            <span class="sym">EXW</span>
-            <span class="nm">En fábrica</span>
-          </div>
-          <div class="text">
-            <h2>¿Cómo leer la tabla?</h2>
-            <ul class="key-list">
-              <li><b>Número</b> posición del elemento (1 a 35)</li>
-              <li><b>Sigla</b> abreviatura que se usa en comercio exterior</li>
-              <li><b>Nombre</b> significado en español</li>
-              <li><b>Color</b> grupo al que pertenece</li>
-            </ul>
-          </div>
-        </div>
         <div class="info" id="info" hidden></div>
       </div>
     </div>
@@ -258,7 +229,7 @@
   <p class="hint swipe">Desliza la tabla hacia los lados para verla completa.</p>
 
   <div class="legend" id="legend"></div>
-  <p class="hint">Toca cualquier elemento para ver qué significa. Toca un color para resaltar ese grupo.</p>
+  <p class="howto"><b>Cómo leer la tabla:</b> cada casilla tiene el número del elemento en la esquina, la sigla en el centro y su significado en español debajo. El color indica el grupo al que pertenece.<span class="screen-only"> Toca cualquier elemento para ver qué significa, o toca un color para resaltar ese grupo.</span></p>
 </div>
 
 <script>
@@ -392,7 +363,6 @@
     `<span class="sym${e.sym.length > 4 ? " long" : ""}">${esc(e.sym)}${e.alt ? `<small>/${esc(e.alt)}</small>` : ""}</span>`;
 
   const table = document.getElementById("table");
-  const key = document.getElementById("key");
   const info = document.getElementById("info");
   const legend = document.getElementById("legend");
 
@@ -418,15 +388,9 @@
 
   function show(n) {
     const e = els[n - 1];
-    key.style.display = "none";
     info.hidden = false;
     info.style.cssText = "display:flex;gap:14px;align-items:center";
     info.innerHTML = `
-      <div class="big ${e.g}">
-        <span class="num">${e.n}</span>
-        ${symHTML(e)}
-        <span class="nm">${esc(e.nm)}</span>
-      </div>
       <div class="text">
         <h2>${esc(e.sym)}${e.alt ? " / " + esc(e.alt) : ""}</h2>
         <p class="en">${esc(e.en)} · ${groups[e.g]}</p>
