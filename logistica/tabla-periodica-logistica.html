@@ -1,546 +1,437 @@
 <title>Tabla Periódica Logística</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@800&family=Big+Shoulders+Display:wght@800&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
 <style>
   :root {
-    --bg: #eef1f4;
-    --panel: #ffffff;
-    --ink: #1a2530;
-    --muted: #5a6875;
-    --line: #d3dae1;
+    color-scheme: light;
+    --bg: #ffffff;
+    --ink: #1f2433;
+    --muted: #5d6475;
+    --border: rgba(31, 36, 51, .28);
+    --title: #1e7fd8;
 
-    --c1: #1f5aa6; --t1: #dde8f7;   /* Incoterms */
-    --c2: #0d8073; --t2: #d6f0ec;   /* Documentos */
-    --c3: #d0541f; --t3: #fbe3d8;   /* Operaciones */
-    --c4: #b8860b; --t4: #f8ecca;   /* Costos y fechas */
-    --c5: #8a2f63; --t5: #f1dde9;   /* Organismos */
-
-    --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
-    --stencil: "Big Shoulders Stencil Display", "Big Shoulders Display", Impact, sans-serif;
-    --body: "Barlow", "Segoe UI", Arial, sans-serif;
-    --cond: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+    --inc: #ffb65c;  /* Incoterms: naranja */
+    --doc: #ffe06b;  /* Documentos: amarillo */
+    --ope: #a3dd84;  /* Operación: verde */
+    --cos: #8fd0f2;  /* Costos y fechas: azul */
+    --org: #c9aaf2;  /* Organismos: morado */
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      color-scheme: dark;
-      --bg: #11171d; --panel: #19222b; --ink: #e7edf2; --muted: #9eabb7; --line: #2c3945;
-      --c1: #8fb8f2; --t1: #182a40;
-      --c2: #6fd4c5; --t2: #11302c;
-      --c3: #f59a70; --t3: #3a2116;
-      --c4: #eac25c; --t4: #352b10;
-      --c5: #e79dc6; --t5: #36182b;
-    }
-  }
-  :root[data-theme="dark"] {
-    color-scheme: dark;
-    --bg: #11171d; --panel: #19222b; --ink: #e7edf2; --muted: #9eabb7; --line: #2c3945;
-    --c1: #8fb8f2; --t1: #182a40;
-    --c2: #6fd4c5; --t2: #11302c;
-    --c3: #f59a70; --t3: #3a2116;
-    --c4: #eac25c; --t4: #352b10;
-    --c5: #e79dc6; --t5: #36182b;
-  }
-
   * { box-sizing: border-box; }
   body {
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font-family: var(--body);
-    font-size: 15px;
-    line-height: 1.45;
+    font-family: "Poppins", "Segoe UI", Arial, sans-serif;
   }
   .wrap {
-    max-width: 1180px;
+    max-width: 1120px;
     margin: 0 auto;
-    padding: 28px 20px 40px;
-    display: grid;
-    gap: 22px;
+    padding: 28px 18px 36px;
   }
 
-  /* Encabezado */
-  header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 16px 28px;
-    align-items: end;
-    padding-bottom: 18px;
-    border-bottom: 3px solid var(--ink);
-  }
-  .eyebrow {
-    font-family: var(--cond);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: .12em;
-    font-size: 13px;
-    color: var(--muted);
-    margin: 0 0 4px;
-  }
+  /* Título */
+  header { text-align: center; margin-bottom: 22px; }
   h1 {
-    font-family: var(--stencil);
-    font-weight: 800;
-    font-size: clamp(40px, 6.4vw, 76px);
-    line-height: .92;
     margin: 0;
-    text-transform: uppercase;
-    letter-spacing: .01em;
-    text-wrap: balance;
+    color: var(--title);
+    font-weight: 800;
+    font-size: clamp(30px, 5vw, 50px);
+    line-height: 1.1;
   }
-  h1 span { color: var(--c3); }
   .intro {
-    margin: 12px 0 0;
-    max-width: 62ch;
-    color: var(--muted);
-    font-size: 15.5px;
-  }
-  .author {
-    text-align: right;
-    font-family: var(--cond);
-    font-size: 15px;
-    line-height: 1.3;
+    max-width: 70ch;
+    margin: 10px auto 0;
+    font-size: 14px;
+    line-height: 1.55;
     color: var(--muted);
   }
-  .author strong {
-    display: block;
-    font-family: var(--body);
-    font-weight: 700;
-    font-size: 17px;
+  .name {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 5px 16px;
+    border-radius: 999px;
+    background: #eef5fd;
+    color: var(--title);
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  /* Tabla */
+  .scroll { overflow-x: auto; padding-bottom: 6px; }
+  .table {
+    display: grid;
+    grid-template-columns: repeat(11, minmax(0, 1fr));
+    gap: 5px;
+    min-width: 860px;
+  }
+  .el {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1 / 1.02;
+    padding: 6px 4px 5px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    background: var(--c);
     color: var(--ink);
+    font-family: inherit;
+    text-align: center;
+    cursor: pointer;
+    transition: transform .12s ease, opacity .2s ease;
   }
+  .el:hover { transform: scale(1.06); z-index: 2; }
+  .el.is-active { border: 2.5px solid var(--ink); }
+  .el.is-dim { opacity: .25; }
+  .el:focus-visible, .chip:focus-visible { outline: 3px solid var(--title); outline-offset: 2px; }
+  .num {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    font-size: 10.5px;
+    font-weight: 500;
+  }
+  .sym {
+    font-weight: 800;
+    font-size: 25px;
+    line-height: 1.05;
+    letter-spacing: -.01em;
+  }
+  .sym.long { font-size: 18px; }
+  .sym small { font-size: 11px; font-weight: 600; }
+  .nm {
+    margin-top: 3px;
+    font-size: 9.5px;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  .inc { --c: var(--inc); }
+  .doc { --c: var(--doc); }
+  .ope { --c: var(--ope); }
+  .cos { --c: var(--cos); }
+  .org { --c: var(--org); }
+
+  .gap-row { grid-column: 1 / -1; height: 10px; }
+  .f-label {
+    grid-column: 1 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.3;
+  }
+
+  /* Recuadro central (como el hueco de la tabla real) */
+  .center {
+    grid-column: 3 / 10;
+    grid-row: 1 / 3;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 4px 6px;
+    min-width: 0;
+  }
+  .big {
+    flex: 0 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    background: var(--c);
+    text-align: center;
+  }
+  .big .num { font-size: 14px; top: 7px; right: 10px; }
+  .big .sym { font-size: 44px; }
+  .big .sym.long { font-size: 32px; }
+  .big .nm { font-size: 12.5px; padding: 0 8px; }
+  .text { min-width: 0; font-size: 13px; line-height: 1.5; }
+  .text h2 { margin: 0; font-size: 18px; line-height: 1.25; }
+  .text .en { margin: 0 0 6px; color: var(--muted); font-size: 12.5px; }
+  .text p { margin: 0; }
+  .text .dato { margin-top: 6px; }
+  .text .dato b { font-weight: 700; }
+  .key-list { margin: 6px 0 0; padding: 0; list-style: none; font-size: 13px; }
+  .key-list li { margin: 2px 0; }
+  .key-list b { display: inline-block; min-width: 64px; }
 
   /* Leyenda */
   .legend {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    align-items: center;
-  }
-  .legend p {
-    margin: 0 6px 0 0;
-    font-size: 13.5px;
-    color: var(--muted);
+    justify-content: center;
+    gap: 8px 10px;
+    margin-top: 20px;
   }
   .chip {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
-    padding: 6px 12px 6px 8px;
-    border: 1.5px solid var(--line);
+    gap: 8px;
+    padding: 6px 14px 6px 6px;
+    border: 1.5px solid var(--border);
     border-radius: 999px;
-    background: var(--panel);
+    background: #fff;
     color: var(--ink);
-    font: 600 13.5px/1 var(--body);
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1;
+    font-family: inherit;
     cursor: pointer;
   }
   .chip i {
-    width: 14px; height: 14px; border-radius: 4px;
-    background: var(--cc);
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: var(--c);
   }
-  .chip[aria-pressed="true"] { border-color: var(--cc); box-shadow: inset 0 0 0 1px var(--cc); }
-  .chip:focus-visible, .el:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
-
-  /* Tabla */
-  .table { display: grid; gap: 8px; }
-  .row {
-    display: grid;
-    grid-template-columns: 118px repeat(7, 1fr);
-    gap: 8px;
-  }
-  .row-label {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 10px 0 12px;
-    border-left: 6px solid var(--cc);
-    font-family: var(--cond);
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 1.1;
-    text-transform: uppercase;
-    letter-spacing: .04em;
-  }
-  .row-label small {
-    font-family: var(--body);
-    font-weight: 500;
-    font-size: 12px;
-    text-transform: none;
-    letter-spacing: 0;
-    color: var(--muted);
-    margin-top: 3px;
-  }
-
-  .el {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-height: 118px;
-    padding: 9px 9px 8px;
-    border: 0;
-    border-top: 6px solid var(--cc);
-    border-radius: 6px;
-    background: var(--tc);
-    color: var(--ink);
-    text-align: left;
-    font-family: var(--body);
-    cursor: pointer;
-    transition: transform .15s ease, box-shadow .15s ease, opacity .2s ease;
-  }
-  .el:hover { transform: translateY(-3px); box-shadow: 0 6px 14px rgba(0,0,0,.12); }
-  .el.is-active { box-shadow: 0 0 0 3px var(--cc); }
-  .el.is-dim { opacity: .25; }
-  .num {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--muted);
-    font-variant-numeric: tabular-nums;
-  }
-  .sym {
-    font-family: var(--display);
-    font-weight: 800;
-    font-size: 46px;
-    line-height: 1;
-    color: var(--cc);
-    margin: 4px 0 6px;
-    white-space: nowrap;
-  }
-  .sym.long { font-size: 36px; }
-  .sym sup {
-    font-size: 15px;
-    vertical-align: top;
-    margin-left: 2px;
-    opacity: .75;
-  }
-  .en {
-    font-family: var(--cond);
-    font-weight: 500;
+  .chip[aria-pressed="true"] { border-color: var(--ink); font-weight: 600; }
+  .hint {
+    margin: 12px 0 0;
+    text-align: center;
     font-size: 12.5px;
-    line-height: 1.15;
-    color: var(--muted);
-    margin-top: auto;
-  }
-  .es {
-    font-weight: 600;
-    font-size: 12.5px;
-    line-height: 1.2;
-    margin-top: 2px;
-  }
-
-  .c1 { --cc: var(--c1); --tc: var(--t1); }
-  .c2 { --cc: var(--c2); --tc: var(--t2); }
-  .c3 { --cc: var(--c3); --tc: var(--t3); }
-  .c4 { --cc: var(--c4); --tc: var(--t4); }
-  .c5 { --cc: var(--c5); --tc: var(--t5); }
-
-  /* Ficha de detalle */
-  .detail {
-    display: grid;
-    grid-template-columns: 170px 1fr;
-    gap: 22px;
-    padding: 18px;
-    background: var(--panel);
-    border: 1.5px solid var(--line);
-    border-radius: 10px;
-  }
-  .big {
-    display: grid;
-    align-content: space-between;
-    aspect-ratio: 1;
-    max-width: 100%;
-    padding: 12px;
-    border-top: 8px solid var(--cc);
-    border-radius: 8px;
-    background: var(--tc);
-  }
-  .big .sym { font-size: 58px; }
-  .big .sym.long { font-size: 42px; }
-  .detail h2 {
-    margin: 0;
-    font-size: 24px;
-    line-height: 1.15;
-    text-wrap: balance;
-  }
-  .detail .sub {
-    margin: 2px 0 12px;
-    color: var(--muted);
-    font-size: 15px;
-  }
-  .detail .cat {
-    display: inline-block;
-    margin-bottom: 8px;
-    padding: 3px 9px;
-    border-radius: 999px;
-    background: var(--tc);
-    color: var(--cc);
-    font: 600 12.5px/1.3 var(--cond);
-    text-transform: uppercase;
-    letter-spacing: .08em;
-  }
-  .detail p { margin: 0; max-width: 68ch; }
-  .dato {
-    margin-top: 12px !important;
-    padding: 10px 12px;
-    border-left: 4px solid var(--cc);
-    background: var(--bg);
-    border-radius: 0 6px 6px 0;
-    font-size: 14.5px;
-  }
-  .dato b { color: var(--cc); }
-  .hint { font-size: 13px; color: var(--muted); margin: 0; }
-
-  footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 8px;
-    padding-top: 14px;
-    border-top: 1.5px solid var(--line);
-    font-size: 13px;
     color: var(--muted);
   }
+  .swipe { display: none; }
 
-  /* Celular */
-  @media (max-width: 820px) {
-    header { grid-template-columns: 1fr; }
-    .author { text-align: left; }
-    .table { gap: 18px; }
-    .row { grid-template-columns: repeat(4, 1fr); }
-    .row-label { grid-column: 1 / -1; padding-block: 2px; }
-    .el { min-height: 104px; }
-    .sym { font-size: 32px; }
-    .sym.long { font-size: 24px; }
-    .detail { grid-template-columns: 1fr; }
-    .big { width: 150px; }
+  @media (max-width: 900px) {
+    .swipe { display: block; }
   }
-  @media (max-width: 440px) {
-    .row { grid-template-columns: repeat(3, 1fr); }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .el { transition: none; }
     .el:hover { transform: none; }
   }
 
   /* Impresión: una hoja carta horizontal */
-  @page { size: letter landscape; margin: 9mm; }
+  @page { size: letter landscape; margin: 10mm; }
   @media print {
-    body { background: #fff; font-size: 12px; }
-    .wrap { max-width: none; padding: 0; gap: 10px; zoom: .8; }
-    h1 { font-size: 46px; }
-    .intro { font-size: 12.5px; margin-top: 6px; }
-    header { padding-bottom: 10px; }
-    .legend p, .detail, .hint { display: none; }
-    .chip { cursor: default; }
-    .table { gap: 6px; }
-    .row { grid-template-columns: 104px repeat(7, 1fr); gap: 6px; }
-    .el { min-height: 86px; padding: 6px 7px; }
-    .el, .el.is-dim, .el.is-active { opacity: 1; box-shadow: none; transform: none; }
-    .sym { font-size: 38px; }
-    .sym.long { font-size: 30px; }
     * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .wrap { max-width: none; padding: 0; zoom: .86; }
+    .scroll { overflow: visible; }
+    .el.is-dim, .el.is-active { opacity: 1; border: 1.5px solid var(--border); }
+    .center .info { display: none !important; }
+    .center .key { display: flex !important; }
+    .hint { display: none; }
   }
 </style>
 
 <div class="wrap">
   <header>
-    <div>
-      <p class="eyebrow">Clase de Logística · Negocios Internacionales</p>
-      <h1>Tabla periódica <span>logística</span></h1>
-      <p class="intro">Las abreviaturas y siglas en la logística internacional son fundamentales porque sirven como un lenguaje universal y estandarizado que agiliza la comunicación entre empresas, aduanas y transportistas de diferentes países.</p>
-    </div>
-    <div class="author">
-      <strong>Julian Andres Moncada Angarita</strong>
-      Logística internacional<br>
-      35 siglas · 5 grupos
-    </div>
+    <h1>Tabla periódica de la logística</h1>
+    <p class="intro">Las abreviaturas y siglas en la logística internacional son fundamentales porque sirven como un lenguaje universal y estandarizado que agiliza la comunicación entre empresas, aduanas y transportistas de diferentes países.</p>
+    <span class="name">Julian Andres Moncada Angarita</span>
   </header>
 
-  <div class="legend" id="legend">
-    <p>Toca un grupo para resaltarlo:</p>
+  <div class="scroll">
+    <div class="table" id="table">
+      <div class="center">
+        <div class="key" id="key" style="display:flex;gap:14px;align-items:center">
+          <div class="big inc">
+            <span class="num">1</span>
+            <span class="sym">EXW</span>
+            <span class="nm">En fábrica</span>
+          </div>
+          <div class="text">
+            <h2>¿Cómo leer la tabla?</h2>
+            <ul class="key-list">
+              <li><b>Número</b> posición del elemento (1 a 35)</li>
+              <li><b>Sigla</b> abreviatura que se usa en comercio exterior</li>
+              <li><b>Nombre</b> significado en español</li>
+              <li><b>Color</b> grupo al que pertenece</li>
+            </ul>
+          </div>
+        </div>
+        <div class="info" id="info" hidden></div>
+      </div>
+    </div>
   </div>
+  <p class="hint swipe">Desliza la tabla hacia los lados para verla completa.</p>
 
-  <div class="table" id="table"></div>
-
-  <section class="detail" id="detail" aria-live="polite"></section>
-  <p class="hint">Toca cualquier elemento de la tabla para ver qué significa.</p>
-
-  <footer>
-    <span>Elaborado por Julian Andres Moncada Angarita</span>
-    <span>Incoterms según la versión 2020 de la Cámara de Comercio Internacional (ICC)</span>
-  </footer>
+  <div class="legend" id="legend"></div>
+  <p class="hint">Toca cualquier elemento para ver qué significa. Toca un color para resaltar ese grupo.</p>
 </div>
 
 <script>
-  const groups = [
-    { id: 1, name: "Incoterms 2020", note: "Reglas de compraventa" },
-    { id: 2, name: "Documentos", note: "DFI y aduanas" },
-    { id: 3, name: "Operación", note: "Contenedores y medidas" },
-    { id: 4, name: "Costos y fechas", note: "Liquidación de fletes" },
-    { id: 5, name: "Organismos", note: "Normativa y seguridad" }
-  ];
+  const groups = {
+    inc: "Incoterms 2020",
+    doc: "Documentos",
+    ope: "Operación y carga",
+    cos: "Costos y fechas",
+    org: "Organismos"
+  };
 
-  // [grupo, símbolo, sigla alterna, nombre en inglés, nombre en español, qué es, dato]
+  // [grupo, fila, columna, sigla, sigla alterna, nombre corto, nombre en inglés, qué es, dato]
   const data = [
-    [1, "EXW", "", "Ex Works", "En fábrica",
-      "El vendedor deja la mercancía lista en su bodega o fábrica. El comprador se encarga de todo lo demás: cargarla, hacer los trámites, pagar el flete y asumir los riesgos.",
+    ["inc", 1, 1, "EXW", "", "En fábrica", "Ex Works",
+      "El vendedor deja la mercancía lista en su bodega. El comprador se encarga de todo lo demás: carga, trámites, flete y riesgos.",
       "Es el Incoterm con menos obligaciones para el vendedor."],
-    [1, "FCA", "", "Free Carrier", "Libre transportista",
-      "El vendedor entrega la mercancía, ya despachada para exportación, al transportista que eligió el comprador en el lugar acordado.",
-      "Sirve para cualquier medio de transporte y es muy usado cuando la carga va en contenedor."],
-    [1, "FOB", "", "Free On Board", "Libre a bordo",
-      "El vendedor pone la mercancía a bordo del buque en el puerto de embarque. Desde ese momento el riesgo pasa al comprador.",
-      "Solo se usa en transporte marítimo o fluvial."],
-    [1, "CFR", "", "Cost and Freight", "Costo y flete",
-      "El vendedor paga el flete hasta el puerto de destino, pero el riesgo pasa al comprador cuando la carga queda a bordo en el puerto de origen.",
-      "No incluye seguro. Solo para transporte marítimo."],
-    [1, "CIF", "", "Cost, Insurance and Freight", "Costo, seguro y flete",
-      "Funciona igual que CFR, con una diferencia: el vendedor también contrata un seguro para la carga hasta el puerto de destino.",
-      "El seguro es de cobertura mínima y debe cubrir por lo menos el 110 % del valor de la mercancía."],
-    [1, "CPT", "", "Carriage Paid To", "Transporte pagado hasta",
-      "El vendedor paga el transporte hasta el destino acordado. El riesgo pasa al comprador cuando la carga se entrega al primer transportista.",
-      "Sirve para envíos aéreos, terrestres o multimodales."],
-    [1, "DDP", "", "Delivered Duty Paid", "Entregado con derechos pagados",
-      "El vendedor asume todo: transporte, riesgos, trámites de aduana y aranceles de importación hasta el lugar de destino.",
+    ["inc", 2, 1, "FCA", "", "Libre transportista", "Free Carrier",
+      "El vendedor entrega la mercancía, ya despachada para exportación, al transportista que eligió el comprador.",
+      "Sirve para cualquier transporte y es muy usado con contenedores."],
+    ["inc", 3, 1, "FOB", "", "Libre a bordo", "Free On Board",
+      "El vendedor pone la mercancía a bordo del buque en el puerto de embarque. Desde ahí el riesgo es del comprador.",
+      "Solo para transporte marítimo o fluvial."],
+    ["inc", 4, 1, "CFR", "", "Costo y flete", "Cost and Freight",
+      "El vendedor paga el flete hasta el puerto de destino, pero el riesgo pasa al comprador cuando la carga sube al buque en origen.",
+      "No incluye seguro. Solo marítimo."],
+    ["inc", 2, 2, "CIF", "", "Costo, seguro y flete", "Cost, Insurance and Freight",
+      "Igual que CFR, pero el vendedor también contrata un seguro para la carga hasta el puerto de destino.",
+      "El seguro es de cobertura mínima, por el 110 % del valor de la mercancía."],
+    ["inc", 3, 2, "CPT", "", "Transporte pagado hasta", "Carriage Paid To",
+      "El vendedor paga el transporte hasta el destino. El riesgo pasa al comprador cuando la carga se entrega al primer transportista.",
+      "Sirve para aéreo, terrestre o multimodal."],
+    ["inc", 4, 2, "DDP", "", "Entregado derechos pagados", "Delivered Duty Paid",
+      "El vendedor asume todo: transporte, riesgos, trámites y aranceles de importación hasta el destino.",
       "Es el Incoterm de máxima obligación para el vendedor."],
 
-    [2, "B/L", "", "Bill of Lading", "Conocimiento de embarque",
-      "Documento que entrega la naviera cuando recibe la carga. Sirve como recibo, como contrato de transporte y como título de propiedad de la mercancía.",
-      "Si es negociable, quien tenga el B/L original puede reclamar la carga en destino."],
-    [2, "AWB", "", "Air Waybill", "Guía aérea",
-      "Es el documento del transporte aéreo. Funciona como contrato con la aerolínea y como recibo de la carga.",
+    ["doc", 3, 3, "B/L", "", "Conocimiento de embarque", "Bill of Lading",
+      "Documento que entrega la naviera al recibir la carga. Es recibo, contrato de transporte y título de propiedad.",
+      "Si es negociable, quien tenga el original puede reclamar la carga en destino."],
+    ["doc", 3, 4, "AWB", "", "Guía aérea", "Air Waybill",
+      "Documento del transporte aéreo. Es el contrato con la aerolínea y el recibo de la carga.",
       "A diferencia del B/L, no es título de propiedad."],
-    [2, "PL", "", "Packing List", "Lista de empaque",
-      "Detalla cómo va empacada la carga: número de bultos, qué lleva cada uno, pesos y medidas.",
-      "La aduana lo revisa durante la inspección física."],
-    [2, "CI", "", "Commercial Invoice", "Factura comercial",
-      "Factura que emite el vendedor con la descripción de la mercancía, cantidades, precios, moneda e Incoterm negociado.",
-      "Es la base para calcular el valor en aduana y los tributos."],
-    [2, "COO", "", "Certificate of Origin", "Certificado de origen",
+    ["doc", 3, 5, "PL", "", "Lista de empaque", "Packing List",
+      "Detalla cómo va empacada la carga: número de bultos, contenido, pesos y medidas.",
+      "La aduana lo revisa en la inspección física."],
+    ["doc", 3, 6, "CI", "", "Factura comercial", "Commercial Invoice",
+      "Factura del vendedor con la descripción de la mercancía, cantidades, precios, moneda e Incoterm.",
+      "Es la base para calcular el valor en aduana."],
+    ["doc", 3, 7, "COO", "", "Certificado de origen", "Certificate of Origin",
       "Certifica en qué país se produjo la mercancía.",
-      "Con él se pueden aplicar las rebajas de aranceles de los tratados de libre comercio."],
-    [2, "DIM", "DAE", "Import / Export Declaration", "Declaración de importación / exportación",
-      "Son las declaraciones que se presentan ante la aduana para importar (DIM) o exportar (DAE) la mercancía de forma legal.",
+      "Con él se aplican las rebajas de aranceles de los TLC."],
+    ["doc", 3, 8, "DIM", "DAE", "Declaración de imp. / exp.", "Import / Export Declaration",
+      "Declaraciones ante la aduana para importar (DIM) o exportar (DAE) la mercancía de forma legal.",
       "En Colombia se presentan ante la DIAN."],
-    [2, "CMR", "", "CMR Consignment Note", "Carta de porte por carretera",
-      "Documento del transporte internacional por carretera. Prueba el contrato entre quien envía la carga y el transportista.",
-      "CMR viene del francés Convention relative au contrat de transport international de Marchandises par Route (Ginebra, 1956)."],
+    ["doc", 3, 9, "CMR", "", "Carta de porte terrestre", "CMR Consignment Note",
+      "Documento del transporte internacional por carretera. Prueba el contrato entre quien envía y el transportista.",
+      "Viene del Convenio CMR, firmado en Ginebra en 1956."],
 
-    [3, "FCL", "", "Full Container Load", "Contenedor completo",
+    ["ope", 4, 3, "FCL", "", "Contenedor completo", "Full Container Load",
       "La carga de un solo cliente ocupa un contenedor entero.",
       "Se paga el contenedor completo, vaya lleno o no."],
-    [3, "LCL", "", "Less than Container Load", "Carga consolidada",
-      "Las cargas de varios clientes comparten un mismo contenedor.",
-      "Se cobra por metro cúbico o por tonelada, lo que resulte mayor."],
-    [3, "TEU", "", "Twenty-foot Equivalent Unit", "Unidad de 20 pies",
-      "Unidad que equivale a un contenedor de 20 pies. Se usa para medir la capacidad de buques y puertos.",
-      "Un contenedor de 20 pies mide unos 6 m de largo y tiene cerca de 33 m³ de espacio."],
-    [3, "FEU", "", "Forty-foot Equivalent Unit", "Unidad de 40 pies",
+    ["ope", 4, 4, "LCL", "", "Carga consolidada", "Less than Container Load",
+      "Cargas de varios clientes comparten un mismo contenedor.",
+      "Se cobra por metro cúbico o por tonelada, lo que sea mayor."],
+    ["ope", 4, 5, "TEU", "", "Unidad de 20 pies", "Twenty-foot Equivalent Unit",
+      "Unidad que equivale a un contenedor de 20 pies. Mide la capacidad de buques y puertos.",
+      "Un contenedor de 20 pies mide unos 6 m de largo."],
+    ["ope", 4, 6, "FEU", "", "Unidad de 40 pies", "Forty-foot Equivalent Unit",
       "Unidad que equivale a un contenedor de 40 pies, unos 12 m de largo.",
       "1 FEU = 2 TEU."],
-    [3, "CBM", "", "Cubic Meter", "Metro cúbico",
-      "Medida de volumen de la carga. Se calcula multiplicando largo × ancho × alto, en metros.",
-      "Ejemplo: una caja de 1 × 0,5 × 0,4 m ocupa 0,2 CBM."],
-    [3, "POL", "", "Port of Loading", "Puerto de carga",
+    ["ope", 4, 7, "CBM", "", "Metro cúbico", "Cubic Meter",
+      "Volumen de la carga: largo × ancho × alto, en metros.",
+      "Una caja de 1 × 0,5 × 0,4 m ocupa 0,2 CBM."],
+    ["ope", 4, 8, "POL", "", "Puerto de carga", "Port of Loading",
       "Puerto donde la mercancía se sube al buque.",
-      "Aparece en el B/L junto con el puerto de descarga (POD)."],
-    [3, "POD", "", "Port of Discharge", "Puerto de descarga",
+      "Aparece en el B/L junto con el POD."],
+    ["ope", 4, 9, "POD", "", "Puerto de descarga", "Port of Discharge",
       "Puerto donde la mercancía se baja del buque.",
-      "En distribución, POD también significa Proof of Delivery, la prueba de entrega firmada."],
+      "En distribución, POD también significa Proof of Delivery (prueba de entrega)."],
 
-    [4, "ETA", "", "Estimated Time of Arrival", "Fecha estimada de llegada",
+    ["cos", 6, 3, "ETA", "", "Llegada estimada", "Estimated Time of Arrival",
       "Fecha y hora en que se espera que llegue el buque, avión o camión.",
-      "Con la ETA el importador organiza la nacionalización y el transporte interno."],
-    [4, "ETD", "", "Estimated Time of Departure", "Fecha estimada de salida",
+      "Con ella el importador organiza la nacionalización."],
+    ["cos", 6, 4, "ETD", "", "Salida estimada", "Estimated Time of Departure",
       "Fecha y hora en que se espera que salga el medio de transporte.",
-      "Puede cambiar por clima, congestión en el puerto u otros retrasos."],
-    [4, "THC", "", "Terminal Handling Charges", "Manipulación en terminal",
-      "Cobro por mover el contenedor dentro del puerto: descargarlo, llevarlo al patio y subirlo al buque.",
-      "Hay THC en origen y en destino. El Incoterm define quién paga cada uno."],
-    [4, "BAF", "", "Bunker Adjustment Factor", "Recargo por combustible",
-      "Recargo que cobra la naviera por los cambios en el precio del combustible del buque.",
-      "Sube o baja según el precio del petróleo."],
-    [4, "CAF", "", "Currency Adjustment Factor", "Recargo cambiario",
-      "Recargo por las variaciones en la tasa de cambio entre monedas.",
+      "Puede cambiar por clima o congestión en el puerto."],
+    ["cos", 6, 5, "THC", "", "Manejo en terminal", "Terminal Handling Charges",
+      "Cobro por mover el contenedor dentro del puerto: descargue, patio y cargue.",
+      "Hay THC en origen y en destino."],
+    ["cos", 6, 6, "BAF", "", "Recargo por combustible", "Bunker Adjustment Factor",
+      "Recargo de la naviera por los cambios en el precio del combustible.",
+      "Sube o baja con el precio del petróleo."],
+    ["cos", 6, 7, "CAF", "", "Recargo cambiario", "Currency Adjustment Factor",
+      "Recargo por las variaciones en la tasa de cambio.",
       "Casi siempre es un porcentaje del flete."],
-    [4, "DEM", "", "Demurrage", "Demora de contenedor",
-      "Cobro por dejar el contenedor lleno dentro del puerto más días de los que la naviera da libres.",
-      "Se evita haciendo rápido la nacionalización."],
-    [4, "DET", "", "Detention", "Detención de contenedor",
+    ["cos", 6, 8, "DEM", "", "Demora de contenedor", "Demurrage",
+      "Cobro por dejar el contenedor lleno en el puerto más días de los libres.",
+      "Se evita nacionalizando rápido."],
+    ["cos", 6, 9, "DET", "", "Detención de contenedor", "Detention",
       "Cobro por tener el contenedor fuera del puerto más días de los libres, hasta devolverlo vacío.",
-      "Fácil de recordar: DEM es dentro del puerto y DET es fuera."],
+      "DEM es dentro del puerto y DET es fuera."],
 
-    [5, "OMA", "WCO", "World Customs Organization", "Organización Mundial de Aduanas",
-      "Organismo que busca que las aduanas del mundo trabajen con procedimientos parecidos y eficientes.",
-      "Tiene sede en Bruselas y administra el Sistema Armonizado (HS)."],
-    [5, "OMC", "WTO", "World Trade Organization", "Organización Mundial del Comercio",
-      "Organismo que pone las reglas del comercio entre países y ayuda a resolver disputas comerciales.",
-      "Nació en 1995 y tiene 166 miembros. Colombia es uno de ellos."],
-    [5, "IATA", "", "International Air Transport Association", "Asociación Internacional de Transporte Aéreo",
-      "Asociación de las aerolíneas del mundo. Crea estándares para el transporte aéreo de pasajeros y carga.",
-      "Asigna los códigos de aeropuerto, como BOG para Bogotá."],
-    [5, "IMO", "OMI", "International Maritime Organization", "Organización Marítima Internacional",
-      "Agencia de la ONU que regula la seguridad del transporte marítimo y la contaminación que causan los buques.",
+    ["org", 1, 11, "OMA", "WCO", "Org. Mundial de Aduanas", "World Customs Organization",
+      "Busca que las aduanas del mundo trabajen con procedimientos parecidos y eficientes.",
+      "Tiene sede en Bruselas y administra el Sistema Armonizado."],
+    ["org", 2, 11, "OMC", "WTO", "Org. Mundial del Comercio", "World Trade Organization",
+      "Pone las reglas del comercio entre países y ayuda a resolver disputas.",
+      "Nació en 1995 y tiene 166 miembros, entre ellos Colombia."],
+    ["org", 3, 11, "IATA", "", "Transporte aéreo internacional", "International Air Transport Association",
+      "Asociación de las aerolíneas del mundo. Crea estándares para el transporte aéreo.",
+      "Asigna los códigos de aeropuerto, como BOG."],
+    ["org", 4, 11, "IMO", "OMI", "Org. Marítima Internacional", "International Maritime Organization",
+      "Agencia de la ONU que regula la seguridad del transporte marítimo y la contaminación de los buques.",
       "Tiene sede en Londres."],
-    [5, "OEA", "AEO", "Authorized Economic Operator", "Operador Económico Autorizado",
-      "Certificación que da la aduana a empresas confiables y seguras dentro de la cadena logística.",
-      "En Colombia la otorga la DIAN. Las empresas certificadas tienen menos inspecciones y trámites más rápidos."],
-    [5, "C-TPAT", "", "Customs-Trade Partnership Against Terrorism", "Alianza aduana-comercio contra el terrorismo",
+    ["org", 2, 10, "OEA", "AEO", "Operador Económico Autorizado", "Authorized Economic Operator",
+      "Certificación que da la aduana a empresas confiables y seguras en su cadena logística.",
+      "En Colombia la otorga la DIAN. Da menos inspecciones y trámites más rápidos."],
+    ["org", 3, 10, "C-TPAT", "", "Aduana-comercio antiterrorismo", "Customs-Trade Partnership Against Terrorism",
       "Programa voluntario de la aduana de Estados Unidos para proteger la cadena de suministro.",
-      "Nació en 2001, después de los atentados del 11 de septiembre."],
-    [5, "HS", "", "Harmonized System Code", "Sistema Armonizado",
-      "Código numérico que se usa en todo el mundo para clasificar las mercancías en el arancel.",
-      "Los primeros 6 dígitos son iguales en todos los países. Colombia usa 10 dígitos en su arancel."]
+      "Nació en 2001, después del 11 de septiembre."],
+    ["org", 4, 10, "HS", "", "Sistema Armonizado", "Harmonized System Code",
+      "Código numérico para clasificar las mercancías en el arancel de cualquier país.",
+      "Los primeros 6 dígitos son iguales en todo el mundo. Colombia usa 10."]
   ];
 
   const els = data.map((d, i) => ({
-    n: i + 1, g: d[0], sym: d[1], alt: d[2], en: d[3], es: d[4], def: d[5], dato: d[6]
+    n: i + 1, g: d[0], r: d[1], c: d[2], sym: d[3], alt: d[4], nm: d[5], en: d[6], def: d[7], dato: d[8]
   }));
 
-  const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const esc = s => s.replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
   const symHTML = e =>
-    `<span class="sym${e.sym.length + (e.alt ? 2 : 0) > 4 ? " long" : ""}">${esc(e.sym)}${e.alt ? `<sup>/${esc(e.alt)}</sup>` : ""}</span>`;
+    `<span class="sym${e.sym.length > 4 ? " long" : ""}">${esc(e.sym)}${e.alt ? `<small>/${esc(e.alt)}</small>` : ""}</span>`;
 
   const table = document.getElementById("table");
+  const key = document.getElementById("key");
+  const info = document.getElementById("info");
   const legend = document.getElementById("legend");
-  const detail = document.getElementById("detail");
 
-  groups.forEach(g => {
-    const row = document.createElement("div");
-    row.className = `row c${g.id}`;
-    row.innerHTML = `<div class="row-label">${g.name}<small>${g.note}</small></div>` +
-      els.filter(e => e.g === g.id).map(e => `
-        <button class="el c${e.g}" data-n="${e.n}" aria-label="${esc(e.sym)}: ${esc(e.es)}">
-          <span class="num">${e.n}</span>
-          ${symHTML(e)}
-          <span class="en">${esc(e.en)}</span>
-          <span class="es">${esc(e.es)}</span>
-        </button>`).join("");
-    table.appendChild(row);
+  // Espacio entre la tabla principal y la fila de abajo
+  table.insertAdjacentHTML("beforeend",
+    `<div class="gap-row" style="grid-row:5"></div>
+     <div class="f-label" style="grid-row:6">Costos y fechas</div>`);
 
-    const chip = document.createElement("button");
-    chip.className = `chip c${g.id}`;
-    chip.setAttribute("aria-pressed", "false");
-    chip.dataset.g = g.id;
-    chip.innerHTML = `<i></i>${g.name}`;
-    legend.appendChild(chip);
+  els.forEach(e => {
+    table.insertAdjacentHTML("beforeend", `
+      <button class="el ${e.g}" data-n="${e.n}" style="grid-row:${e.r};grid-column:${e.c}"
+              aria-label="${esc(e.sym)}: ${esc(e.nm)}">
+        <span class="num">${e.n}</span>
+        ${symHTML(e)}
+        <span class="nm">${esc(e.nm)}</span>
+      </button>`);
+  });
+
+  Object.entries(groups).forEach(([id, name]) => {
+    legend.insertAdjacentHTML("beforeend",
+      `<button class="chip ${id}" data-g="${id}" aria-pressed="false"><i></i>${name}</button>`);
   });
 
   function show(n) {
     const e = els[n - 1];
-    const g = groups[e.g - 1];
-    detail.className = `detail c${e.g}`;
-    detail.innerHTML = `
-      <div class="big">
+    key.style.display = "none";
+    info.hidden = false;
+    info.style.cssText = "display:flex;gap:14px;align-items:center";
+    info.innerHTML = `
+      <div class="big ${e.g}">
         <span class="num">${e.n}</span>
         ${symHTML(e)}
-        <span class="es">${esc(e.es)}</span>
+        <span class="nm">${esc(e.nm)}</span>
       </div>
-      <div>
-        <span class="cat">${g.name}</span>
-        <h2>${esc(e.sym)}${e.alt ? " / " + esc(e.alt) : ""} · ${esc(e.en)}</h2>
-        <p class="sub">${esc(e.es)}</p>
+      <div class="text">
+        <h2>${esc(e.sym)}${e.alt ? " / " + esc(e.alt) : ""}</h2>
+        <p class="en">${esc(e.en)} · ${groups[e.g]}</p>
         <p>${esc(e.def)}</p>
-        <p class="dato"><b>Dato clave:</b> ${esc(e.dato)}</p>
+        <p class="dato"><b>Dato:</b> ${esc(e.dato)}</p>
       </div>`;
     document.querySelectorAll(".el").forEach(b => b.classList.toggle("is-active", +b.dataset.n === n));
   }
@@ -556,10 +447,7 @@
     const on = chip.getAttribute("aria-pressed") !== "true";
     legend.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", "false"));
     chip.setAttribute("aria-pressed", String(on));
-    document.querySelectorAll(".el").forEach(b => {
-      b.classList.toggle("is-dim", on && !b.classList.contains(`c${chip.dataset.g}`));
-    });
+    document.querySelectorAll(".el").forEach(b =>
+      b.classList.toggle("is-dim", on && !b.classList.contains(chip.dataset.g)));
   });
-
-  show(1);
 </script>
